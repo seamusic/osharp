@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Security.Claims;
 using System.Web.Mvc;
 
 using OSharp.Core;
@@ -15,10 +16,10 @@ using OSharp.Core.Security;
 using OSharp.Demo.Contracts;
 using OSharp.Demo.Identity;
 using OSharp.Demo.Models.Identity;
-using OSharp.SiteBase.Extensions;
-using OSharp.SiteBase.Logging;
 using OSharp.Utility.Extensions;
 using OSharp.Web.Mvc;
+using OSharp.Web.Mvc.Extensions;
+using OSharp.Web.Mvc.Logging;
 
 
 namespace OSharp.Demo.Web.Controllers
@@ -36,6 +37,12 @@ namespace OSharp.Demo.Web.Controllers
         [Description("测试-首页")]
         public ActionResult Index()
         {
+            return View();
+        }
+
+        [Description("测试-缓存测试")]
+        public ActionResult TestCacher()
+        {
             DateTime dt = DateTime.Now;
             ICache cache = CacheManager.GetCacher<TestsController>();
             const string key = "KEY__fdsaf";
@@ -47,45 +54,14 @@ namespace OSharp.Demo.Web.Controllers
                 dt1 = dt;
             }
             return Content("实际时间：{0}，缓存时间：{1}".FormatWith(dt, dt1));
-            return new EmptyResult();
         }
 
-        [Description("测试-测试01")]
-        public ActionResult Test01()
+        public ActionResult TestClaims()
         {
-            List<Type> entityTypes = new List<Type>()
-            {
-                typeof(User),
-                typeof(Role),
-                typeof(Function),
-                typeof(OperateLog),
-                typeof(DataLog)
-            };
-            List<string>strs = new List<string>();
-            foreach (Type entityType in entityTypes)
-            {
-                IUnitOfWork uow = ContextTypeResolver.Resolve(entityType);
-                strs.Add("{0}: {1} - {2}".FormatWith(entityType.FullName, uow.GetType().FullName, uow.GetHashCode()));
-            }
-            return Content(strs.ExpandAndToString("<br/>"));
-        }
-
-        [Description("测试-测试02")]
-        public ActionResult Test02()
-        {
-            TestContract.Test();
-            return Content("end");
-        }
-
-        [HttpPost]
-        public ActionResult Test03Ajax(List<int> ids)
-        {
-            return Json(ids);
-        }
-
-        public ActionResult Test03()
-        {
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            ViewBag.Identity = identity;
             return View();
         }
+
     }
 }
