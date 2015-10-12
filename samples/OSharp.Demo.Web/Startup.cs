@@ -40,14 +40,14 @@ namespace OSharp.Demo.Web
             ICacheProvider provider = new RuntimeMemoryCacheProvider();
             CacheManager.SetProvider(provider, CacheLevel.First);
 
-            IServicesBuilder builder = new ServicesBuilder(new ServiceBuildOptions());
+            IServicesBuilder builder = new ServicesBuilder();
             IServiceCollection services = builder.Build();
             services.AddLog4NetServices();
             services.AddDataServices();
-
-            app.UseOsharpMvc(services, new MvcAutofacIocBuilder());
-            app.UseOsharpWebApi(services, new WebApiAutofacIocBuilder());
-            app.UseOsharpSignalR(services, new SignalRAutofacIocBuilder());
+            
+            app.UseOsharpMvc(new MvcAutofacIocBuilder(services));
+            app.UseOsharpWebApi(new WebApiAutofacIocBuilder(services));
+            //app.UseOsharpSignalR(new SignalRAutofacIocBuilder(services));
 
             ConfigurationWebApi(app);
             ConfigureSignalR(app);

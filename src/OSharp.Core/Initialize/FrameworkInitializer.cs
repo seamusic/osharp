@@ -32,19 +32,17 @@ namespace OSharp.Core
         /// <summary>
         /// 开始执行框架初始化
         /// </summary>
-        /// <param name="services">服务映射集合</param>
         /// <param name="iocBuilder">依赖注入构建器</param>
-        public void Initialize(IServiceCollection services, IIocBuilder iocBuilder)
+        public void Initialize(IIocBuilder iocBuilder)
         {
-            services.CheckNotNull("services");
             iocBuilder.CheckNotNull("iocBuilder");
 
             OSharpConfig config = OSharpConfig.Instance;
+            
+            //依赖注入初始化
+            IServiceProvider provider = iocBuilder.Build();
 
-            //使用副本进行初始化，防止不同平台间的相互污染
-            IServiceCollection newServices = services.Clone();
-            IServiceProvider provider = iocBuilder.Build(newServices);
-
+            //日志功能初始化
             IBasicLoggingInitializer loggingInitializer = provider.GetService<IBasicLoggingInitializer>();
             if (!_basicLoggingInitialized && loggingInitializer != null)
             {
@@ -52,6 +50,7 @@ namespace OSharp.Core
                 _basicLoggingInitialized = true;
             }
 
+            //数据库初始化
             IDatabaseInitializer databaseInitializer = provider.GetService<IDatabaseInitializer>();
             if (!_databaseInitialized)
             {
@@ -63,6 +62,7 @@ namespace OSharp.Core
                 _databaseInitialized = true;
             }
 
+            //实体信息初始化
             if (!_entityInfoInitialized)
             {
                 IEntityInfoHandler entityInfoHandler = provider.GetService<IEntityInfoHandler>();
@@ -73,7 +73,7 @@ namespace OSharp.Core
                 entityInfoHandler.Initialize();
                 _entityInfoInitialized = true;
             }
-
+            //功能信息初始化
             IFunctionHandler functionHandler = provider.GetService<IFunctionHandler>();
             if (functionHandler == null)
             {
