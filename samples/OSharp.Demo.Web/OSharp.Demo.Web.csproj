@@ -175,6 +175,7 @@
     <Content Include="Content\images\tools.png" />
     <Content Include="Content\osharp-admin.css" />
     <Content Include="Content\osharp-icons.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="Content\themes\black\accordion.css" />
     <Content Include="Content\themes\black\calendar.css" />
     <Content Include="Content\themes\black\combo.css" />
@@ -475,7 +476,14 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Areas\Manage\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Manage\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Manage\Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\OSharp.Demo.Web.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Scripts\jquery-1.11.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -486,9 +494,12 @@
     <None Include="Scripts\jquery.linq-vsdoc.js" />
     <Content Include="Scripts\jquery.easyui-1.4.1.js" />
     <Content Include="Scripts\jquery.easyui.min-1.4.1.js" />
+    <Content Include="Scripts\jquery.easyui.min.js" />
+    <Content Include="Scripts\jquery.easyui.mobile.js" />
     <Content Include="Scripts\jquery.linq.js" />
     <Content Include="Scripts\jquery.linq.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -498,6 +509,7 @@
     <Content Include="Scripts\locale\easyui-lang-en.js" />
     <Content Include="Scripts\locale\easyui-lang-zh_CN.js" />
     <Content Include="Scripts\locale\easyui-lang-zh_TW.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\osharp.data.demo.js" />
     <Content Include="Scripts\osharp.data.js" />
     <Content Include="Scripts\osharp.easyui.js" />
@@ -509,6 +521,14 @@
     <Content Include="Views\web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Compile Include="Areas\Manage\Controllers\AdminBaseController.cs" />
+    <Compile Include="Areas\Manage\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Manage\Controllers\Identity\OrganizationsController.cs" />
+    <Compile Include="Areas\Manage\Controllers\Identity\RolesController.cs" />
+    <Compile Include="Areas\Manage\Controllers\Identity\UsersController.cs" />
+    <Compile Include="Areas\Manage\Controllers\Security\EntityInfosController.cs" />
+    <Compile Include="Areas\Manage\Controllers\Security\FunctionsController.cs" />
+    <Compile Include="Areas\Manage\Controllers\Systems\LoggingController.cs" />
     <Compile Include="Startup\Startup.SignalR.cs" />
     <Compile Include="Startup\Startup.WebApi.cs" />
     <Content Include="Views\Tests\Index.cshtml" />
@@ -601,9 +621,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Manage\Controllers\" />
     <Folder Include="Areas\Manage\Models\" />
-    <Folder Include="Areas\Manage\Views\Shared\" />
     <Folder Include="Views\Account\" />
   </ItemGroup>
   <PropertyGroup>
